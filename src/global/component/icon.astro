@@ -1,0 +1,38 @@
+---
+import { capitalizeFirst } from '@global/util/capitalize_firts';
+
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'svg'> &
+{
+  readonly name: string;
+  readonly size?: number;
+  readonly title?: string;
+  readonly class?: string;
+};
+
+const {
+  class: classIcon,
+  name,
+  size = 32,
+  title,
+  ...rest
+} = Astro.props;
+
+const icon = await import(`./../asset/icon/${name}.svg?raw`);
+
+const iconContent = icon.default.slice(icon.default.indexOf('>') + 1, icon.default.indexOf('</svg>'));
+const iconFormat = iconContent.replaceAll(/fill=".*?"/gv, '');
+const iconTitle = title ? `<title>${capitalizeFirst(title)}</title>` : '';
+const iconRaw = title ? `${iconTitle}${iconFormat}` : iconFormat;
+---
+<svg
+  width={size}
+  height={size}
+  set:html={iconRaw}
+  viewBox='0 0 64 64'
+  class:list={classIcon}
+  xmlns='http://www.w3.org/2000/svg'
+  aria-label={title && capitalizeFirst(title)}
+  {...rest}
+/>

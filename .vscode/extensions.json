@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "astro-build.astro-vscode",
+    "streetsidesoftware.code-spell-checker",
+    "webben.browserslist",
+    "EditorConfig.EditorConfig",
+    "dbaeumer.vscode-eslint",
+    "syler.sass-indented",
+    "mrmlnc.vscode-scss",
+    "streetsidesoftware.code-spell-checker-spanish",
+    "stylelint.vscode-stylelint",
+    "oxc.oxc-vscode",
+    "redhat.vscode-yaml"
+  ]
+}

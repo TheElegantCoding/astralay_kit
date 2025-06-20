@@ -1,5 +1,5 @@
 ---
-import CustomImage from '@global/component/custom_image.astro';
+import Input from '@global/component/input.astro';
 import BaseLayout from '@global/layout/base_layout.astro';
 ---
 <BaseLayout
@@ -10,15 +10,21 @@ import BaseLayout from '@global/layout/base_layout.astro';
   }}
 >
   <h1 class='header'>Hola mundo</h1>
-  <div class='test-custom-image__container'>
-    <CustomImage
-      alt=''
-      width={100}
-      height={100}
-      src='/asset/image/image_placeholder.png'
-    >
-      <p data-animate='fade-in-up'>Hola</p>
-    </CustomImage>
+  <form class="form">
+    <Input
+      name='world'
+      iconLeft='square'
+      label='Hola mundo'
+      iconRight='square'
+      placeholder='Ingresa un país'
+      required
+    />
+    <Input
+      name='world2'
+      label='Hola mundo'
+      placeholder='Ingresa un país'
+    />
+  </form>
   </div>
 </BaseLayout>
 

@@ -1,0 +1,60 @@
+@use '@global/style/global' as *;
+
+.scroll
+{
+  position: relative;
+}
+
+.scroll__container
+{
+  overflow: visible auto;
+  padding-right: $spacing_12;
+}
+
+.scroll__container-vertical
+{
+  overflow: auto visible;
+  display: flex;
+}
+
+.scroll__fade
+{
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: $spacing_40;
+  visibility: hidden;
+  opacity: 0;
+  background: linear-gradient(360deg, rgba($gray_100, 0) 0%, $gray_100 100%);
+  transition: opacity 0.5s, visibility 0.5s;
+}
+
+.scroll__fade--active
+{
+  visibility: visible;
+  opacity: 1;
+}
+
+.scroll__fade-vertical
+{
+  top: 0;
+  left: 0;
+  width: $spacing_40;
+  height: 100%;
+  background: linear-gradient(90deg, $gray_100 0%, rgba($gray_100, 0) 100%);
+}
+
+.scroll__fade-bottom
+{
+  bottom: -$spacing_2;
+  left: 0;
+  background: linear-gradient(360deg, $gray_100 0%, rgba($gray_100, 0) 100%);
+}
+
+.scroll__fade-vertical-right
+{
+  right: -$spacing_2;
+  bottom: auto;
+  left: auto;
+  background: linear-gradient(90deg, rgba($gray_100, 0) 0%, $gray_100 100%);
+}

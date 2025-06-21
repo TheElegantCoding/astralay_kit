@@ -1,0 +1,12 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'span'>;
+
+const { class: classOverlay, ...rest } = Astro.props;
+---
+<span
+  class='overlay'
+  class:list={[ classOverlay ]}
+  {...rest}
+/>

@@ -1,0 +1,93 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'div'> &
+{
+  class?: string;
+  orientation?: 'vertical' | 'horizontal';
+};
+
+const { class: classScroll, orientation = 'horizontal' } = Astro.props;
+---
+<div
+  data-scroll
+  class='scroll'
+  class:list={[ classScroll ]}
+>
+  <div
+    data-scroll-start
+    class='scroll__fade'
+    class:list={[ orientation === 'vertical' && 'scroll__fade-vertical' ]}
+  />
+  <div
+    data-scroll-container
+    class='scroll__container'
+    class:list={[ classScroll, orientation === 'vertical' && 'scroll__container-vertical' ]}
+  >
+    <slot />
+  </div>
+  <div
+    data-scroll-end
+    class='scroll__fade scroll__fade-bottom'
+    class:list={[ orientation === 'vertical' && 'scroll__fade-vertical scroll__fade-vertical-right' ]}
+  />
+</div>
+
+<script>
+  const scroll = document.querySelectorAll('[data-scroll]');
+
+  scroll.forEach((element) =>
+  {
+    const scrollContainer = element.querySelector<HTMLDivElement>('[data-scroll-container]')
+    const fadeStart = element.querySelector('[data-scroll-start]')
+    const fadeEnd = element.querySelector('[data-scroll-end]')
+    const orientation = scrollContainer?.classList.contains('scroll__container-vertical') ? 'vertical' : 'horizontal';
+
+    if(scrollContainer && orientation === 'horizontal' && (scrollContainer.scrollHeight > scrollContainer.clientHeight))
+    {
+      fadeEnd?.classList.add('scroll__fade--active')
+      fadeStart?.classList.remove('scroll__fade--active')
+    }
+
+    if(scrollContainer && orientation === 'vertical' && (scrollContainer.scrollWidth > scrollContainer.clientWidth))
+    {
+      fadeStart?.classList.add('scroll__fade--active')
+      fadeEnd?.classList.remove('scroll__fade--active')
+    }
+
+    scrollContainer?.addEventListener('scroll', () => {
+      if(scrollContainer.scrollTop === 0)
+      {
+        fadeEnd?.classList.add('scroll__fade--active')
+        fadeStart?.classList.remove('scroll__fade--active')
+      }
+
+      if(orientation === 'vertical' && scrollContainer.scrollLeft !== 0)
+      {
+        fadeStart?.classList.add('scroll__fade--active')
+        fadeEnd?.classList.remove('scroll__fade--active')
+      }
+
+      if(orientation === 'horizontal' &&
+      (scrollContainer.scrollTop === (scrollContainer.scrollHeight - scrollContainer.offsetHeight)))
+      {
+        fadeStart?.classList.add('scroll__fade--active')
+        fadeEnd?.classList.remove('scroll__fade--active')
+      }
+
+      if(orientation === 'horizontal' && scrollContainer.scrollTop !== 0 &&
+        scrollContainer.scrollTop !== (scrollContainer.scrollHeight - scrollContainer.offsetHeight))
+      {
+        fadeStart?.classList.add('scroll__fade--active')
+        fadeEnd?.classList.add('scroll__fade--active')
+      }
+
+      if(orientation === 'vertical' && scrollContainer.scrollLeft !== 0 &&
+        scrollContainer.scrollLeft !== (scrollContainer.scrollWidth - scrollContainer.offsetWidth))
+      {
+        fadeStart?.classList.add('scroll__fade--active')
+        fadeEnd?.classList.add('scroll__fade--active')
+      }
+    })
+  })
+</script>

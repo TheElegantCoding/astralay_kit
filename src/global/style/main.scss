@@ -19,6 +19,14 @@
 
 @use './component/input';
 
+@use './component/scroll';
+
+@use './component/overlay';
+
+@use './component/modal';
+
+@use './component/form';
+
 // Page
 @use './page/not_found';
 

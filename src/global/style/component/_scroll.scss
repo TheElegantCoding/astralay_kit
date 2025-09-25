@@ -23,6 +23,7 @@
   position: absolute;
   width: 100%;
   height: $spacing_40;
+  z-index: $z_30;
   visibility: hidden;
   opacity: 0;
   background: linear-gradient(360deg, rgba($gray_100, 0) 0%, $gray_100 100%);
